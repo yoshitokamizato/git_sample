@@ -7,19 +7,24 @@ class User
   end
 
   def introduce
-    if @age > 20
+    if adult?
       "はじめまして、私の名前は#{@name}です"
     else
       "ぼくは#{@name}だよ！！！"
     end
   end
+
+  private
+
+  def adult?
+    @age >= 20
+  end
 end
 
 def build_users(params)
   users = []
-  params.each do |params|
-    users << User.new(params)
-  end
+
+  params.each {|params| users << User.new(params)}
 
   users
 end
@@ -28,6 +33,4 @@ params = [{name: "saitou", age: 22}, {name: "taira", age: 12}, {name: "yamada", 
 
 users = build_users(params)
 
-users.each do |user|
-  puts user.introduce
-end
+users.each {|user| puts user.introduce}
